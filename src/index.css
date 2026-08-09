@@ -52,6 +52,8 @@ body {
   border: 1px solid #1A2029;
   border-radius: 17px;
   color: #ffffff;
+  font-size: 16px;
+  font-weight: 400;
 }
 
 header .logo {
@@ -77,24 +79,28 @@ header .logo {
 .vacancies-btn {
   display: flex;
   align-items: center;
-  height: 35px;
+  height: 40px;
   padding: 0 25px;
   background: #1A2029;
-  border: 0.5px solid #bbbec1;
+  border: 1px solid #1A2029;
   border-radius: 17px;
   color: #ffffff;
+  font-size: 16px;
+  font-weight: 500;
 }
 
 .applications-btn {
   display: flex;
   align-items: center;
   gap: 8px;
-  height: 35px;
+  height: 40px;
   padding: 0 25px;
   background: #1A2029;
-  border: 0.5px solid #bbbec1;
+  border: 1px solid #1A2029;
   border-radius: 17px;
   color: #ffffff;
+  font-size: 16px;
+  font-weight: 500;
 }
 
 .applications-text {
@@ -117,3 +123,43 @@ header .logo {
   font-weight: 600;
 }
 
+/* Jobs Page */
+
+.jobs-page {
+  padding-top: 20px;
+}
+
+/* Search Filters */
+
+.filter-fields {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.filter-field {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.filter-field input,
+.filter-field select {
+  height: 50px;
+  padding: 0 10px;
+
+  background: #1A2029;
+  border-radius: 17px;
+  color: #ffffff;
+  border: 1px solid #1A2029;
+  font-family: inherit;
+  font-size: 18px;
+  font-weight: 600;
+  font-family: inherit;
+}
+
+.filter-field label {
+  color: #d8dee9;
+  font-size: 20px;
+  font-weight: 700;
+}
