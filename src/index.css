@@ -163,3 +163,41 @@ header .logo {
   font-size: 20px;
   font-weight: 700;
 }
+
+/* Jobs Found */
+
+.jobs-block {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 36px;
+}
+
+.jobs-title {
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 24px;
+}
+
+.jobs-count {
+  transform: translateY(1.4px);
+}
+
+.jobs-header {
+  display: flex;
+  align-items: center;
+  gap: 24px;  
+}
+
+.sort-field select {
+  height: 40px;
+  padding: 0 25px;
+
+  background: #1A2029;
+  border-radius: 17px;
+  color: #ffffff;
+  border: 1px solid #1A2029;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 600;
+}
