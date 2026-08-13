@@ -201,3 +201,53 @@ header .logo {
   font-size: 16px;
   font-weight: 600;
 }
+
+/* Jobs List */
+
+.job-list {
+  margin-top: 24px;
+}
+
+/* Jobs Card */
+
+.job-card {
+  display: grid;
+  align-items: center;
+  grid-template-columns: auto 1fr auto;
+  gap: 10px;
+  padding: 20px;
+  background: #1A2029;
+  border-radius: 17px;
+}
+
+.job-logo {
+  display: flex;
+  align-items: center;
+  padding: 29px 29px 29px 29px;
+  border-radius: 17px;
+  background: #2D3748;
+}
+
+.job-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.job-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+}
+
+.job-actions button {
+  height: 40px;
+  padding: 0 25px;
+  background: #1A2029;
+  border: 1px solid #ffffff;
+  border-radius: 17px;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 500;
+}
