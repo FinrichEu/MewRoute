@@ -1,19 +1,19 @@
 import React from 'react'
 
-export default function JobCard() {
+export default function JobCard({logo, title, company, location, tags}) {
     return (
         <article className="job-card">
-            <div className="job-logo">NC
+            <div className="job-logo">{logo}
             </div>
 
             <div className="job-info">
-                <h3>Junior Frontend Developer</h3>
-                <p>North Cloud · Berlin, Germany</p>
+                <h3>{title}</h3>
+                <p>{company} · {location}</p>
 
                 <div className="job-tags">
-                    <span> Remote </span>
-                    <span> Visa support </span>
-                    <span> React </span>
+                    <span> {tags[0]} </span>
+                    <span> {tags[1]} </span>
+                    <span> {tags[2]} </span>
                 </div>
             </div>
 

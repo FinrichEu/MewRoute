@@ -186,7 +186,7 @@ header .logo {
 .jobs-header {
   display: flex;
   align-items: center;
-  gap: 24px;  
+  gap: 24px;
 }
 
 .sort-field select {
@@ -206,6 +206,10 @@ header .logo {
 
 .job-list {
   margin-top: 24px;
+  background: #1A2029;
+  border: 1px solid rgba(191, 211, 247, 0.12);
+  border-radius: 24px;
+  overflow: hidden;
 }
 
 /* Jobs Card */
@@ -215,9 +219,8 @@ header .logo {
   align-items: center;
   grid-template-columns: auto 1fr auto;
   gap: 10px;
+  background: transparent;
   padding: 20px;
-  background: #1A2029;
-  border-radius: 17px;
 }
 
 .job-logo {
