@@ -7,6 +7,8 @@ import JobsList from './JobList.jsx'
 export default function JobsPage() {
 
   const [sortBy, setSortBy] = useState("default");
+  const [search, setSearch] = useState("");
+  const [location, setlocation] = useState("");
 
   const jobs = [
     {
@@ -15,17 +17,19 @@ export default function JobsPage() {
       title: 'Junior Frontend Developer',
       company: 'North Cloud',
       location: 'Berlin, Germany',
-      tags: ['Remote', 'Visa support', 'React'],
+      tags: ['Remote', 'React'],
       created_at: "1638006745",
+      job_types: ["Internship"]
     },
     {
       id: 2,
       logo: 'NC',
       title: 'Senior Frontend Developer',
       company: 'North Cloud',
-      location: 'Berlin, Germany',
-      tags: ['Remote', 'Visa support', 'React'],
+      location: 'Poland',
+      tags: ['Remote', 'React'],
       created_at: "1638006747",
+      job_types: ["full time"]
     }
   ]
 
@@ -40,11 +44,34 @@ export default function JobsPage() {
     return 0
   })
 
+  const searchedJobs = jobssorted.filter((job) => {
+    if (search === "") {
+      return true;
+    }
+    return job.title
+    .toLowerCase()
+    .includes(search.toLowerCase()) || job.company.toLowerCase().includes(search.toLowerCase());
+  });
+
+  const filteredJobs = searchedJobs.filter((job) => {
+    if (location === "") {
+      return true;
+    }
+
+    if (!job.location) {
+      return false;
+    }
+
+    return job.location
+    .toLowerCase()
+    .includes(location.toLowerCase())
+  });
+
   return (
     <div className="jobs-page">
-      <SearchFilters />
-      <JobsFound count={jobs.length} sortBy={sortBy} setSortBy={setSortBy} />
-      <JobsList jobsarray={jobssorted} />
+      <SearchFilters location={location} setlocation={setlocation} search={search} setSearch={setSearch} />
+      <JobsFound count={jobssorted.length} sortBy={sortBy} setSortBy={setSortBy} />
+      <JobsList jobsarray={filteredJobs} />
     </div>
   )
 }

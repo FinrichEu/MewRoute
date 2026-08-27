@@ -1,11 +1,17 @@
 import React from 'react'
 
-export default function SearchFilters() {
+export default function SearchFilters({ search, setSearch, location, setlocation}) {
   return (
     <div className="filter-fields">
       <div className="filter-field">
         <label htmlFor="job-search">Search</label>
-        <input id="job-search" type="search" />
+        <input
+          id="job-search"
+          type="search"
+          placeholder="Search jobs..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
       </div>
 
       <div className="filter-field">
@@ -19,13 +25,15 @@ export default function SearchFilters() {
       </div>
 
       <div className="filter-field">
-        <label htmlFor="visa-sponsorship">Visa sponsorship</label>
-        <select id="visa-sponsorship" defaultValue="available">
-          <option value="all">Doesn't matter</option>
-          <option value="available">Available</option>
-          <option value="unavailable">Unavailable</option>
-        </select>
+        <label htmlFor="location">Location</label>
+        <input
+          id="location"
+          type="text"
+          placeholder="For example, Berlin"
+          value={location}
+          onChange={(e) => setlocation(e.target.value)}
+        />
       </div>
-    </div>
+    </div >
   )
 }
