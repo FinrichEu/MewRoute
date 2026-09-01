@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function SearchFilters({ search, setSearch, location, setlocation}) {
+export default function SearchFilters({ search, setSearch, location, setlocation, workformat, setWorkformat}) {
   return (
     <div className="filter-fields">
       <div className="filter-field">
@@ -16,11 +16,14 @@ export default function SearchFilters({ search, setSearch, location, setlocation
 
       <div className="filter-field">
         <label htmlFor="work-format">Work format</label>
-        <select id="work-format" defaultValue="remote">
+        <select
+          id="work-format"
+          value={workformat}
+          onChange={(e) => setWorkformat(e.target.value)}
+        >
           <option value="all">All formats</option>
           <option value="remote">Remote</option>
-          <option value="hybrid">Hybrid</option>
-          <option value="office">Office</option>
+          <option value="not-remote">Not remote</option>
         </select>
       </div>
 

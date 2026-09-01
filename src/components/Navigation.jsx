@@ -1,16 +1,17 @@
 import React from 'react'
+import { NavLink } from "react-router";
 
 export default function Navigation() {
     return (
         <div className="navigation">
-            <button className="vacancies-btn" type="button">
+            <NavLink to="/" className="vacancies-btn">
                 <span>Vacancies</span>
-            </button>
+            </NavLink>
 
-            <button className="applications-btn" type="button">
+            <NavLink to="/applications" className="applications-btn">
                 <span className="applications-text">My applications</span>
                 <span className="applications-count">2</span>
-            </button>
+            </NavLink>
         </div>
     )
 }

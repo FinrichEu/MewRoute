@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function JobCard({job}) {
+export default function JobCard({ job, setSavedJobIds }) {
     return (
         <article className="job-card">
             <div className="job-logo">{job.logo}
@@ -18,7 +18,14 @@ export default function JobCard({job}) {
             </div>
 
             <div className="job-actions">
-                <button type="button">Save</button>
+                <button type="button"
+                    onClick={() => {
+                        setSavedJobIds((oldArray) => {
+                            return [...oldArray, job.id];
+                        });
+                    }}
+                >
+                    Save</button>
                 <button type="button">View details</button>
             </div>
         </article>

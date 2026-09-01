@@ -1,7 +1,7 @@
 import React from 'react'
 import JobCard from './JobCard.jsx'
 
-export default function JobList({ jobsarray }) {
+export default function JobList({ jobsarray, setSavedJobIds }) {
   if (jobsarray.length === 0) {
     return (
       <div className="job-list">
@@ -16,6 +16,7 @@ export default function JobList({ jobsarray }) {
         <JobCard
           key={item.id}
           job={item}
+          setSavedJobIds={setSavedJobIds}
         />
       ))}
     </div>
