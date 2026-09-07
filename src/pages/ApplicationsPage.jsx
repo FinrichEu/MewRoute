@@ -2,11 +2,23 @@ import React from 'react'
 import { jobs } from '../data/jobs.js'
 import JobCard from '../components/JobCard.jsx'
 
-export default function ApplicationsPage({ savedJobIds }) {
+export default function ApplicationsPage({ savedJobIds, setSavedJobIds }) {
 
   const savedJobs = jobs.filter((job) => {
     return savedJobIds.includes(job.id);
   });
+
+  function handleRemove(jobId) {
+    setSavedJobIds((oldArray) => {
+      return oldArray.filter((currentId) => {
+        if (currentId === jobId) {
+          return false;
+        }
+
+        return true;
+      });
+    });
+  }
 
 
   return (
@@ -15,7 +27,11 @@ export default function ApplicationsPage({ savedJobIds }) {
         <JobCard
           key={job.id}
           job={job}
+          savedJobIds={savedJobIds}
+          
+          handleRemove={handleRemove}
         />
+        
       ))}
     </div>
   )

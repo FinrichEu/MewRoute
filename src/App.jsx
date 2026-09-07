@@ -13,15 +13,15 @@ function App() {
   return (
     <div className="wrapper">
       <Header />
-      <Navigation />
+      <Navigation count={savedJobIds.length} />
       <Routes>
         <Route
           path="/"
-          element={<JobsPage setSavedJobIds={setSavedJobIds} />}
+          element={<JobsPage setSavedJobIds={setSavedJobIds} savedJobIds={savedJobIds}/>}
         />
         <Route
           path="/applications"
-          element={<ApplicationsPage savedJobIds={savedJobIds} />}
+          element={<ApplicationsPage savedJobIds={savedJobIds} setSavedJobIds={setSavedJobIds}/>}
         />
       </Routes>
     </div>

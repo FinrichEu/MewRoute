@@ -5,7 +5,7 @@ import SearchFilters from '../components/SearchFilters.jsx'
 import JobsFound from '../components/JobsFound.jsx'
 import JobsList from '../components/JobList.jsx'
 
-export default function JobsPage({setSavedJobIds}) {
+export default function JobsPage({setSavedJobIds, savedJobIds}) {
 
   const [sortBy, setSortBy] = useState("default");
   const [search, setSearch] = useState("");
@@ -74,6 +74,7 @@ export default function JobsPage({setSavedJobIds}) {
       <JobsList
         jobsarray={remoteSearched} 
         setSavedJobIds={setSavedJobIds}
+        savedJobIds={savedJobIds}
         />
     </div>
   )

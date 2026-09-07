@@ -1,6 +1,9 @@
 import React from 'react'
 
-export default function JobCard({ job, setSavedJobIds }) {
+export default function JobCard({ job, setSavedJobIds, savedJobIds, handleRemove }) {
+
+    const isSaved = savedJobIds.includes(job.id);
+
     return (
         <article className="job-card">
             <div className="job-logo">{job.logo}
@@ -18,14 +21,24 @@ export default function JobCard({ job, setSavedJobIds }) {
             </div>
 
             <div className="job-actions">
-                <button type="button"
-                    onClick={() => {
-                        setSavedJobIds((oldArray) => {
-                            return [...oldArray, job.id];
-                        });
-                    }}
-                >
-                    Save</button>
+                {handleRemove ? (
+                    <button
+                        type="button"
+                        onClick={() => handleRemove(job.id)}>Remove</button>) : 
+                    (<button
+                        disabled={isSaved}
+                        type="button"
+                        onClick={() => {
+                            setSavedJobIds((oldArray) => {
+                                if (oldArray.includes(job.id)) {
+                                    return oldArray;
+                                }
+
+                                return [...oldArray, job.id];
+                            });
+                        }}>
+                        {isSaved ? 'Saved' : 'Save'}
+                    </button>)}
                 <button type="button">View details</button>
             </div>
         </article>
