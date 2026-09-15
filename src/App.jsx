@@ -4,11 +4,31 @@ import Footer from './components/Footer.jsx'
 import Navigation from './components/Navigation.jsx'
 import JobsPage from './pages/JobsPage.jsx'
 import ApplicationsPage from './pages/ApplicationsPage.jsx'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Routes, Route } from 'react-router'
 
 function App() {
-  const [savedJobIds, setSavedJobIds] = useState([]);
+  /* Initialize the state with saved IDs, or an empty array if none are stored */
+  /* Store the IDs of jobs saved by the user */
+
+  /* savedJobIds - the current state (an array of job IDs) */
+  /* setSavedJobIds - the function used to update this state */
+  /* The array is empty if no job IDs have been saved yet */
+
+  const [savedJobIds, setSavedJobIds] = useState(() => {
+    const savedIds = localStorage.getItem('savedJobIds');
+    /* Check whether localStorage contains a saved value */
+    if (savedIds) {
+      return JSON.parse(savedIds);
+    }
+
+    return [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem('savedJobIds', JSON.stringify(savedJobIds));
+    // Save the IDs to localStorage whenever savedJobIds changes
+  }, [savedJobIds]);
 
   return (
     <div className="wrapper">
@@ -17,11 +37,11 @@ function App() {
       <Routes>
         <Route
           path="/"
-          element={<JobsPage setSavedJobIds={setSavedJobIds} savedJobIds={savedJobIds}/>}
+          element={<JobsPage setSavedJobIds={setSavedJobIds} savedJobIds={savedJobIds} />}
         />
         <Route
           path="/applications"
-          element={<ApplicationsPage savedJobIds={savedJobIds} setSavedJobIds={setSavedJobIds}/>}
+          element={<ApplicationsPage savedJobIds={savedJobIds} setSavedJobIds={setSavedJobIds} />}
         />
       </Routes>
     </div>

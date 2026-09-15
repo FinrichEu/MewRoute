@@ -5,13 +5,24 @@ import SearchFilters from '../components/SearchFilters.jsx'
 import JobsFound from '../components/JobsFound.jsx'
 import JobsList from '../components/JobList.jsx'
 
+/* Receive the saved job IDs (savedJobIds) and the function to update them (setSavedJobIds) from App */
+
 export default function JobsPage({setSavedJobIds, savedJobIds}) {
 
+  /* Store the selected sort option */
   const [sortBy, setSortBy] = useState("default");
+
+  /* Store the search text entered by the user */
   const [search, setSearch] = useState("");
+
+  /* Store the location entered or selected by the user */
   const [location, setlocation] = useState("");
+
+  /* Store the selected work format */
   const [workformat, setWorkformat] = useState("");
 
+  /* Create a copy of the jobs array and sort it by date */
+  /* [...jobs] copies the array. .sort() modifies the array it is called on */
   const jobssorted = [...jobs].sort((job1, job2) => {
     if (sortBy === "newest") {
       return job2.created_at - job1.created_at;

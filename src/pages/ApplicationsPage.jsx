@@ -23,16 +23,16 @@ export default function ApplicationsPage({ savedJobIds, setSavedJobIds }) {
 
   return (
     <div>
-      {savedJobs.map((job) => (
-        <JobCard
-          key={job.id}
-          job={job}
-          savedJobIds={savedJobIds}
-          
-          handleRemove={handleRemove}
-        />
-        
-      ))}
+      {savedJobs.length === 0
+        ? <p>No saved jobs yet xdxdxd</p>
+        : savedJobs.map((job) => (
+          <JobCard
+            key={job.id}
+            job={job}
+            savedJobIds={savedJobIds}
+            handleRemove={handleRemove}
+          />))
+      }
     </div>
   )
 }
