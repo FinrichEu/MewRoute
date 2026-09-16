@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router';
 
 export default function JobCard({ job, setSavedJobIds, savedJobIds, handleRemove }) {
 
@@ -24,7 +25,7 @@ export default function JobCard({ job, setSavedJobIds, savedJobIds, handleRemove
                 {handleRemove ? (
                     <button
                         type="button"
-                        onClick={() => handleRemove(job.id)}>Remove</button>) : 
+                        onClick={() => handleRemove(job.id)}>Remove</button>) :
                     (<button
                         disabled={isSaved}
                         type="button"
@@ -39,7 +40,7 @@ export default function JobCard({ job, setSavedJobIds, savedJobIds, handleRemove
                         }}>
                         {isSaved ? 'Saved' : 'Save'}
                     </button>)}
-                <button type="button">View details</button>
+                <Link className="job-link" to={`/jobs/${job.id}`}> View details </Link>
             </div>
         </article>
     )

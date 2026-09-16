@@ -4,8 +4,9 @@ import Footer from './components/Footer.jsx'
 import Navigation from './components/Navigation.jsx'
 import JobsPage from './pages/JobsPage.jsx'
 import ApplicationsPage from './pages/ApplicationsPage.jsx'
+import JobDetailsPage from './pages/JobDetailsPage.jsx'
 import { useState, useEffect } from 'react'
-import { Routes, Route } from 'react-router'
+import { Routes, Route,  } from 'react-router'
 
 function App() {
   /* Initialize the state with saved IDs, or an empty array if none are stored */
@@ -42,6 +43,10 @@ function App() {
         <Route
           path="/applications"
           element={<ApplicationsPage savedJobIds={savedJobIds} setSavedJobIds={setSavedJobIds} />}
+        />
+        <Route
+          path="/jobs/:jobId"
+          element={<JobDetailsPage />}
         />
       </Routes>
     </div>
