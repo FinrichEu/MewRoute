@@ -1,13 +1,12 @@
 import React from 'react'
 import { useState } from 'react'
-import { jobs } from '../data/jobs.js'
 import SearchFilters from '../components/SearchFilters.jsx'
 import JobsFound from '../components/JobsFound.jsx'
 import JobsList from '../components/JobList.jsx'
 
 /* Receive the saved job IDs (savedJobIds) and the function to update them (setSavedJobIds) from App */
 
-export default function JobsPage({setSavedJobIds, savedJobIds}) {
+export default function JobsPage({jobs,setSavedJobIds, savedJobIds}) {
 
   /* Store the selected sort option */
   const [sortBy, setSortBy] = useState("default");
@@ -40,7 +39,7 @@ export default function JobsPage({setSavedJobIds, savedJobIds}) {
     }
     return job.title
       .toLowerCase()
-      .includes(search.toLowerCase()) || job.company.toLowerCase().includes(search.toLowerCase());
+      .includes(search.toLowerCase()) || job.company_name.toLowerCase().includes(search.toLowerCase());
   });
 
   const filteredJobs = searchedJobs.filter((job) => {

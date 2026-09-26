@@ -14,7 +14,7 @@ export default function JobList({ jobsarray, setSavedJobIds, savedJobIds }) {
     <div className="job-list">
       {jobsarray.map((item) => (
         <JobCard
-          key={item.id}
+          key={item.slug}
           job={item}
           setSavedJobIds={setSavedJobIds}
           savedJobIds={savedJobIds}

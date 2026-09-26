@@ -1,11 +1,10 @@
 import React from 'react'
-import { jobs } from '../data/jobs.js'
 import JobCard from '../components/JobCard.jsx'
 
-export default function ApplicationsPage({ savedJobIds, setSavedJobIds }) {
+export default function ApplicationsPage({ jobs, savedJobIds, setSavedJobIds }) {
 
   const savedJobs = jobs.filter((job) => {
-    return savedJobIds.includes(job.id);
+    return savedJobIds.includes(job.slug);
   });
 
   function handleRemove(jobId) {
@@ -27,7 +26,7 @@ export default function ApplicationsPage({ savedJobIds, setSavedJobIds }) {
         ? <p>No saved jobs yet xdxdxd</p>
         : savedJobs.map((job) => (
           <JobCard
-            key={job.id}
+            key={job.slug}
             job={job}
             savedJobIds={savedJobIds}
             handleRemove={handleRemove}
