@@ -42,18 +42,26 @@ function App() {
   }, [savedJobIds]);
 
   const [jobs, setJobs] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  async function loadJobs() {
+    try {
+      setLoading(true);
+      setError(null);
+
+      const result = await getJobs();
+      setJobs(result.data);
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  }
 
   useEffect(() => {
-    async function loadJobs() {
-      const data = await getJobs();
-      console.log(data.data[0]);
-
-      setJobs(data.data);
-    }
-
     loadJobs();
   }, []);
-
 
   return (
     <div className="wrapper">
@@ -62,7 +70,9 @@ function App() {
       <Routes>
         <Route
           path="/"
-          element={<JobsPage jobs={jobs} setSavedJobIds={setSavedJobIds} savedJobIds={savedJobIds} />}
+          element={<JobsPage jobs={jobs} loading={loading}
+          error={error} setSavedJobIds={setSavedJobIds} savedJobIds={savedJobIds}
+          loadJobs={loadJobs}/>}
         />
         <Route
           path="/applications"

@@ -6,7 +6,7 @@ import JobsList from '../components/JobList.jsx'
 
 /* Receive the saved job IDs (savedJobIds) and the function to update them (setSavedJobIds) from App */
 
-export default function JobsPage({jobs,setSavedJobIds, savedJobIds}) {
+export default function JobsPage({ jobs, setSavedJobIds, savedJobIds, loading, error, loadJobs }) {
 
   /* Store the selected sort option */
   const [sortBy, setSortBy] = useState("default");
@@ -19,6 +19,23 @@ export default function JobsPage({jobs,setSavedJobIds, savedJobIds}) {
 
   /* Store the selected work format */
   const [workformat, setWorkformat] = useState("");
+
+  if (loading) {
+    return <p>Loading jobs...</p>;
+  }
+
+  if (error) {
+    return (
+      <div>
+        <p>Error: {error}</p>
+        <button onClick={loadJobs}>Retry!</button>
+      </div>
+    );
+  }
+
+  if (!jobs || jobs.length === 0) {
+    return <p>No jobs found.</p>;
+  }
 
   /* Create a copy of the jobs array and sort it by date */
   /* [...jobs] copies the array. .sort() modifies the array it is called on */
@@ -66,7 +83,7 @@ export default function JobsPage({jobs,setSavedJobIds, savedJobIds}) {
     }
 
     return true;
-  }); 
+  });
 
   return (
     <div className="jobs-page">
@@ -82,10 +99,10 @@ export default function JobsPage({jobs,setSavedJobIds, savedJobIds}) {
         sortBy={sortBy}
         setSortBy={setSortBy} />
       <JobsList
-        jobsarray={remoteSearched} 
+        jobsarray={remoteSearched}
         setSavedJobIds={setSavedJobIds}
         savedJobIds={savedJobIds}
-        />
+      />
     </div>
   )
 }
