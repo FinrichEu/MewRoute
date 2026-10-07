@@ -45,22 +45,46 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  async function loadJobs() {
-    try {
-      setLoading(true);
-      setError(null);
+  async function loadJobs(signal) {
+    setLoading(true);
+    setError(null);
 
-      const result = await getJobs();
+    try {
+      const result = await getJobs(signal);
+
+      if (signal?.aborted) return;
+      /* If the fetch was aborted, do not update the state */
       setJobs(result.data);
+
     } catch (error) {
+
+      if (signal?.aborted || error.name === "AbortError") {
+        return; /* Ignore abort errors */
+      }
+
+      /* If the fetch fails, set the error state to display an error message */
       setError(error.message);
+
     } finally {
-      setLoading(false);
+
+      if (!signal?.aborted) {
+        /* Set loading to false only if the fetch was not aborted */
+        setLoading(false);
+      }
     }
   }
 
   useEffect(() => {
-    loadJobs();
+
+    /* SETUP */
+    const controller = new AbortController();
+    loadJobs(controller.signal);
+
+    /* CLEANUP */
+    return () => {
+      controller.abort();
+    };
+
   }, []);
 
   return (
@@ -71,8 +95,8 @@ function App() {
         <Route
           path="/"
           element={<JobsPage jobs={jobs} loading={loading}
-          error={error} setSavedJobIds={setSavedJobIds} savedJobIds={savedJobIds}
-          loadJobs={loadJobs}/>}
+            error={error} setSavedJobIds={setSavedJobIds} savedJobIds={savedJobIds}
+            loadJobs={loadJobs} />}
         />
         <Route
           path="/applications"

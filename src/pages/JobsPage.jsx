@@ -23,12 +23,13 @@ export default function JobsPage({ jobs, setSavedJobIds, savedJobIds, loading, e
   if (loading) {
     return <p>Loading jobs...</p>;
   }
-
+  
+  /* Call loadJobs when the button is clicked to retry fetching jobs */
   if (error) {
     return (
       <div>
         <p>Error: {error}</p>
-        <button onClick={loadJobs}>Retry!</button>
+        <button onClick={() => loadJobs()}>Retry!</button>
       </div>
     );
   }
