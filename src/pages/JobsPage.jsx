@@ -6,7 +6,7 @@ import JobsList from '../components/JobList.jsx'
 
 /* Receive the saved job IDs (savedJobIds) and the function to update them (setSavedJobIds) from App */
 
-export default function JobsPage({ jobs, setSavedJobIds, savedJobIds, loading, error, loadJobs }) {
+export default function JobsPage({ jobs, setSavedJobIds, savedJobIds, loading, error, onRetry }) {
 
   /* Store the selected sort option */
   const [sortBy, setSortBy] = useState("default");
@@ -24,12 +24,12 @@ export default function JobsPage({ jobs, setSavedJobIds, savedJobIds, loading, e
     return <p>Loading jobs...</p>;
   }
   
-  /* Call loadJobs when the button is clicked to retry fetching jobs */
+  /* Call onRetry when the button is clicked to retry fetching jobs */
   if (error) {
     return (
       <div>
         <p>Error: {error}</p>
-        <button onClick={() => loadJobs()}>Retry!</button>
+        <button onClick={onRetry}>Retry!</button>
       </div>
     );
   }
