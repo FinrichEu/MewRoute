@@ -1,7 +1,7 @@
 import React from 'react'
 import { useParams } from 'react-router';
 
-export default function JobDetailsPage({jobs}) {
+export default function JobDetailsPage({ jobs, loading, error, onRetry }) {
 
   const params = useParams();
   const jobId = params.jobId;
@@ -9,6 +9,19 @@ export default function JobDetailsPage({jobs}) {
   const foundJob = jobs.find((currentJob) => {
     return currentJob.slug === jobId;
   });
+
+  if (loading) {
+    return <p>Loading job...</p>;
+  }
+
+  if (error) {
+    return (
+      <div>
+        <p>Error: {error}</p>
+        <button onClick={onRetry}>Retry</button>
+      </div>
+    );
+  }
 
   if (!foundJob) {
     return <p>Job not found</p>;

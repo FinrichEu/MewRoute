@@ -11,5 +11,9 @@ export async function getJobs(signal) {
 
     const json = await response.json();
 
+    if (!Array.isArray(json?.data)) { /* Is the passed value an array? */
+        throw new Error("Invalid response: jobs data must be an array");
+    }
+
     return json;
 }

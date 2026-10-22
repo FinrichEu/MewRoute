@@ -102,11 +102,21 @@ function App() {
         />
         <Route
           path="/applications"
-          element={<ApplicationsPage jobs={jobs} savedJobIds={savedJobIds} setSavedJobIds={setSavedJobIds} />}
+          element={<ApplicationsPage
+            jobs={jobs}
+            savedJobIds={savedJobIds}
+            setSavedJobIds={setSavedJobIds}
+            loading={loading}
+            error={error}
+            onRetry={() => setRetryCount(count => count + 1)} />}
         />
         <Route
           path="/jobs/:jobId"
-          element={<JobDetailsPage jobs={jobs} />}
+          element={<JobDetailsPage
+            jobs={jobs}
+            loading={loading}
+            error={error}
+            onRetry={() => setRetryCount(count => count + 1)} />}
         />
       </Routes>
     </div>

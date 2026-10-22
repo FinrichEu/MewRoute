@@ -1,7 +1,7 @@
 import React from 'react'
 import JobCard from '../components/JobCard.jsx'
 
-export default function ApplicationsPage({ jobs, savedJobIds, setSavedJobIds }) {
+export default function ApplicationsPage({ jobs, savedJobIds, setSavedJobIds, loading, error, onRetry }) {
 
   const savedJobs = jobs.filter((job) => {
     return savedJobIds.includes(job.slug);
@@ -19,6 +19,18 @@ export default function ApplicationsPage({ jobs, savedJobIds, setSavedJobIds }) 
     });
   }
 
+  if (loading) {
+    return <p>Loading saved jobs...</p>;
+  }
+
+  if (error) {
+    return (
+      <div>
+        <p>Error: {error}</p>
+        <button onClick={onRetry}>Retry</button>
+      </div>
+    );
+  }
 
   return (
     <div>
