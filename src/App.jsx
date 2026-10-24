@@ -45,10 +45,12 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [retryCount, setRetryCount] = useState(0);
+  const [page, setPage] = useState(1);
+  const [links, setLinks] = useState(null);
 
   useEffect(() => {
-
     /* SETUP */
+
     const controller = new AbortController();
 
     async function loadJobs() {
@@ -56,11 +58,12 @@ function App() {
       setError(null);
 
       try {
-        const result = await getJobs(controller.signal);
+        const result = await getJobs(controller.signal, page);
 
         if (controller.signal.aborted) return;
         /* If the fetch was aborted, do not update the state */
         setJobs(result.data);
+        setLinks(result.links);
 
       } catch (error) {
 
@@ -87,7 +90,7 @@ function App() {
       controller.abort();
     };
 
-  }, [retryCount]); /* Which values ​​should trigger a re-run of this useEffect when they change? */
+  }, [retryCount, page]); /* Which values ​​should trigger a re-run of this useEffect when they change? */
 
   return (
     <div className="wrapper">
@@ -96,8 +99,15 @@ function App() {
       <Routes>
         <Route
           path="/"
-          element={<JobsPage jobs={jobs} loading={loading}
-            error={error} setSavedJobIds={setSavedJobIds} savedJobIds={savedJobIds}
+          element={<JobsPage
+            jobs={jobs}
+            loading={loading}
+            error={error}
+            setSavedJobIds={setSavedJobIds}
+            savedJobIds={savedJobIds}
+            page={page}
+            setPage={setPage}
+            links={links}
             onRetry={() => setRetryCount(count => count + 1)} />}
         />
         <Route

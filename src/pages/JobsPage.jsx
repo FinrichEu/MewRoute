@@ -6,7 +6,10 @@ import JobsList from '../components/JobList.jsx'
 
 /* Receive the saved job IDs (savedJobIds) and the function to update them (setSavedJobIds) from App */
 
-export default function JobsPage({ jobs, setSavedJobIds, savedJobIds, loading, error, onRetry }) {
+export default function JobsPage({
+  jobs, setSavedJobIds, savedJobIds, loading, error, onRetry,
+  page, setPage, links
+}) {
 
   /* Store the selected sort option */
   const [sortBy, setSortBy] = useState("default");
@@ -23,7 +26,7 @@ export default function JobsPage({ jobs, setSavedJobIds, savedJobIds, loading, e
   if (loading) {
     return <p>Loading jobs...</p>;
   }
-  
+
   /* Call onRetry when the button is clicked to retry fetching jobs */
   if (error) {
     return (
@@ -104,6 +107,25 @@ export default function JobsPage({ jobs, setSavedJobIds, savedJobIds, loading, e
         setSavedJobIds={setSavedJobIds}
         savedJobIds={savedJobIds}
       />
+      <div className="pagination">
+        <button
+          disabled={!links?.prev}
+          type="button"
+          onClick={() => setPage(currentPage => Math.max(1, currentPage - 1))}
+        >
+          Previous
+        </button>
+
+        <span>Page {page}</span>
+
+        <button
+          disabled={!links?.next}
+          type="button"
+          onClick={() => setPage(currentPage => currentPage + 1)}
+        >
+          Next
+        </button>
+      </div>
     </div>
   )
 }

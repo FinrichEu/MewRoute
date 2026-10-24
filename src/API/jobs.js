@@ -1,9 +1,10 @@
 const url = "https://www.arbeitnow.com/api/job-board-api";
 
 
-export async function getJobs(signal) {
+export async function getJobs(signal, page) {
     /* fetch() returns Promise, await gives us Response */
-    const response = await fetch(url, { signal });
+    /* url + "?page=" + page */
+    const response = await fetch(`${url}?page=${page}`, { signal });
     /* response.json() returns Promise, await gives us parsed JS data */
     if (!response.ok) {
         throw new Error("Failed to load jobs");
@@ -15,5 +16,9 @@ export async function getJobs(signal) {
         throw new Error("Invalid response: jobs data must be an array");
     }
 
-    return json;
+    return {
+        data: json.data,
+        links: json.links,
+        meta: json.meta,
+    };
 }
