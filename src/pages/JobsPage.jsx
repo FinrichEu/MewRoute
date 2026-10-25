@@ -3,6 +3,7 @@ import { useState } from 'react'
 import SearchFilters from '../components/SearchFilters.jsx'
 import JobsFound from '../components/JobsFound.jsx'
 import JobsList from '../components/JobList.jsx'
+import Pagination from '../components/Pagination/Pagination.jsx'
 
 /* Receive the saved job IDs (savedJobIds) and the function to update them (setSavedJobIds) from App */
 
@@ -107,25 +108,11 @@ export default function JobsPage({
         setSavedJobIds={setSavedJobIds}
         savedJobIds={savedJobIds}
       />
-      <div className="pagination">
-        <button
-          disabled={!links?.prev}
-          type="button"
-          onClick={() => setPage(currentPage => Math.max(1, currentPage - 1))}
-        >
-          Previous
-        </button>
-
-        <span>Page {page}</span>
-
-        <button
-          disabled={!links?.next}
-          type="button"
-          onClick={() => setPage(currentPage => currentPage + 1)}
-        >
-          Next
-        </button>
-      </div>
+      <Pagination
+        links={links}
+        page={page}
+        setPage={setPage}
+      />
     </div>
   )
 }

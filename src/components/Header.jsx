@@ -11,10 +11,6 @@ export default function Header() {
           <p className="tagline">Job search and application tracking</p>
         </div>
       </div>
-      <button className="add-app-container">
-        <span>+</span>
-        <span>Add application</span>
-      </button>
     </header >
   )
 }
