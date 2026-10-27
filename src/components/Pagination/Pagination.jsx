@@ -2,13 +2,17 @@ import React from 'react'
 import { SlArrowLeft } from "react-icons/sl";
 import { SlArrowRight } from "react-icons/sl";
 
-function Pagination({ links, page, setPage }) {
+function Pagination({ currentPage, setCurrentPage, totalPages }) {
+    if (totalPages <= 1) {
+        return null;
+    }
+
     return (
         <div className="pagination">
             <button
-                disabled={!links?.prev}
+                disabled={currentPage === 1}
                 type="button"
-                onClick={() => setPage(currentPage => Math.max(1, currentPage - 1))}
+                onClick={() => setCurrentPage((currentPage) => currentPage - 1)}
             >
                 <SlArrowLeft className="pagination-arrow" aria-hidden="true" />
                 <span>Previous</span>
@@ -16,13 +20,13 @@ function Pagination({ links, page, setPage }) {
 
             <span className="pagination-current" aria-current="page">
                 <span className="pagination-page-label">Page </span>
-                {page}
+                {currentPage}
             </span>
 
             <button
-                disabled={!links?.next}
+                disabled={currentPage >= totalPages}
                 type="button"
-                onClick={() => setPage(currentPage => currentPage + 1)}
+                onClick={() => setCurrentPage((currentPage) => currentPage + 1)}
             >
                 <span>Next</span>
                 <SlArrowRight className="pagination-arrow" aria-hidden="true" />

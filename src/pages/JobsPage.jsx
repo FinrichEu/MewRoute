@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState, useEffect} from 'react'
 import SearchFilters from '../components/SearchFilters.jsx'
 import JobsFound from '../components/JobsFound.jsx'
 import JobsList from '../components/JobList.jsx'
@@ -8,9 +8,7 @@ import Pagination from '../components/Pagination/Pagination.jsx'
 /* Receive the saved job IDs (savedJobIds) and the function to update them (setSavedJobIds) from App */
 
 export default function JobsPage({
-  jobs, setSavedJobIds, savedJobIds, loading, error, onRetry,
-  page, setPage, links
-}) {
+  jobs, setSavedJobIds, savedJobIds, loading, error, onRetry,}) {
 
   /* Store the selected sort option */
   const [sortBy, setSortBy] = useState("default");
@@ -23,6 +21,14 @@ export default function JobsPage({
 
   /* Store the selected work format */
   const [workformat, setWorkformat] = useState("");
+
+  const [currentPage, setCurrentPage] = useState(1);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [jobs]);
+
+  const jobsPerPage = 20;
 
   if (loading) {
     return <p>Loading jobs...</p>;
@@ -55,17 +61,22 @@ export default function JobsPage({
     return 0
   })
 
+  const normalizedSearch = search.trim().toLowerCase();
+  const normalizedLocation = location.trim().toLowerCase();
+
   const searchedJobs = jobssorted.filter((job) => {
-    if (search === "") {
+    if (normalizedSearch === "") {
       return true;
     }
-    return job.title
-      .toLowerCase()
-      .includes(search.toLowerCase()) || job.company_name.toLowerCase().includes(search.toLowerCase());
+
+    return (
+      job.title.toLowerCase().includes(normalizedSearch) ||
+      job.company_name.toLowerCase().includes(normalizedSearch)
+    );
   });
 
   const filteredJobs = searchedJobs.filter((job) => {
-    if (location === "") {
+    if (normalizedLocation === "") {
       return true;
     }
 
@@ -73,9 +84,7 @@ export default function JobsPage({
       return false;
     }
 
-    return job.location
-      .toLowerCase()
-      .includes(location.toLowerCase())
+    return job.location.toLowerCase().includes(normalizedLocation);
   });
 
   const remoteSearched = filteredJobs.filter((job) => {
@@ -90,28 +99,45 @@ export default function JobsPage({
     return true;
   });
 
+  const totalPages = Math.ceil(remoteSearched.length / jobsPerPage);
+
+  const startIndex = (currentPage - 1) * jobsPerPage;
+  const endIndex = startIndex + jobsPerPage;
+
+  const visibleJobs = remoteSearched.slice(startIndex, endIndex);
+
   return (
     <div className="jobs-page">
       <SearchFilters
-        location={location}
-        setlocation={setlocation}
         search={search}
-        setSearch={setSearch}
+        setSearch={(value) => {
+          setSearch(value);
+          setCurrentPage(1);
+        }}
+        location={location}
+        setlocation={(value) => {
+          setlocation(value);
+          setCurrentPage(1);
+        }}
         workformat={workformat}
-        setWorkformat={setWorkformat} />
+        setWorkformat={(value) => {
+          setWorkformat(value);
+          setCurrentPage(1);
+        }}
+      />
       <JobsFound
         count={remoteSearched.length}
         sortBy={sortBy}
         setSortBy={setSortBy} />
       <JobsList
-        jobsarray={remoteSearched}
+        jobsarray={visibleJobs}
         setSavedJobIds={setSavedJobIds}
         savedJobIds={savedJobIds}
       />
       <Pagination
-        links={links}
-        page={page}
-        setPage={setPage}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        totalPages={totalPages}
       />
     </div>
   )
