@@ -5,89 +5,14 @@ import Navigation from './components/Navigation.jsx'
 import JobsPage from './pages/JobsPage.jsx'
 import ApplicationsPage from './pages/ApplicationsPage.jsx'
 import JobDetailsPage from './pages/JobDetailsPage.jsx'
-import { useState, useEffect } from 'react'
+import useSavedJobs from './hooks/useSavedJobs.js';
+import useJobs from './hooks/useJobs.js';
 import { Routes, Route, } from 'react-router'
-import { getJobs } from './API/jobs.js'
 
 function App() {
-  /* Initialize the state with saved IDs, or an empty array if none are stored */
-  /* Store the IDs of jobs saved by the user */
 
-  /* savedJobIds - the current state (an array of job IDs) */
-  /* setSavedJobIds - the function used to update this state */
-  /* The array is empty if no job IDs have been saved yet */
-
-  const [savedJobIds, setSavedJobIds] = useState(() => {
-    const savedIds = localStorage.getItem('savedJobIds');
-    if (!savedIds) {
-      return [];
-    }
-
-    try {
-      const parsedIds = JSON.parse(savedIds);
-      if (!Array.isArray(parsedIds)) {
-        return [];
-      }
-
-      /* API jobs use string slugs discard old numeric IDs and null entries */
-      return parsedIds.filter((id) => typeof id === 'string' && id.length > 0);
-    } catch {
-      return [];
-    }
-  });
-
-  useEffect(() => {
-    localStorage.setItem('savedJobIds', JSON.stringify(savedJobIds));
-    /* Save the IDs to localStorage whenever savedJobIds changes */
-  }, [savedJobIds]); /* Which values ​​should trigger a re-run of this useEffect when they change? */
-
-  const [jobs, setJobs] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [retryCount, setRetryCount] = useState(0);
-
-  useEffect(() => {
-    /* SETUP */
-
-    const controller = new AbortController();
-
-    async function loadJobs() {
-      setLoading(true);
-      setError(null);
-
-      try {
-        const result = await getJobs(controller.signal);
-
-        if (controller.signal.aborted) return;
-        /* If the fetch was aborted, do not update the state */
-        setJobs(result.data);
-
-      } catch (error) {
-
-        if (controller.signal.aborted || error.name === "AbortError") {
-          return; /* Ignore abort errors */
-        }
-
-        /* If the fetch fails, set the error state to display an error message */
-        setError(error.message);
-
-      } finally {
-
-        if (!controller.signal.aborted) {
-          /* Set loading to false only if the fetch was not aborted */
-          setLoading(false);
-        }
-      }
-    }
-
-    loadJobs();
-
-    /* CLEANUP */
-    return () => {
-      controller.abort();
-    };
-
-  }, [retryCount]); /* Which values ​​should trigger a re-run of this useEffect when they change? */
+  const { savedJobIds, saveJob, removeJob } = useSavedJobs();
+  const { jobs, loading, error, retry } = useJobs();
 
   return (
     <div className="wrapper">
@@ -100,19 +25,19 @@ function App() {
             jobs={jobs}
             loading={loading}
             error={error}
-            setSavedJobIds={setSavedJobIds}
             savedJobIds={savedJobIds}
-            onRetry={() => setRetryCount(count => count + 1)} />}
+            onSave={saveJob}
+            onRetry={retry} />}
         />
         <Route
           path="/applications"
           element={<ApplicationsPage
             jobs={jobs}
             savedJobIds={savedJobIds}
-            setSavedJobIds={setSavedJobIds}
+            onRemove={removeJob}
             loading={loading}
             error={error}
-            onRetry={() => setRetryCount(count => count + 1)} />}
+            onRetry={retry} />}
         />
         <Route
           path="/jobs/:jobId"
@@ -120,7 +45,7 @@ function App() {
             jobs={jobs}
             loading={loading}
             error={error}
-            onRetry={() => setRetryCount(count => count + 1)} />}
+            onRetry={retry} />}
         />
       </Routes>
     </div>

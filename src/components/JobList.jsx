@@ -1,11 +1,16 @@
 import React from 'react'
 import JobCard from './JobCard.jsx'
 
-export default function JobList({ jobsarray, setSavedJobIds, savedJobIds }) {
+export default function JobList({
+  jobsarray,
+  onSave,
+  onRemove,
+  savedJobIds,
+  emptyMessage = 'No jobs available.', }) {
   if (jobsarray.length === 0) {
     return (
       <div className="job-list">
-        <p>No jobs available.</p>
+        <p>{emptyMessage}</p>
       </div>
     )
   }
@@ -16,8 +21,9 @@ export default function JobList({ jobsarray, setSavedJobIds, savedJobIds }) {
         <JobCard
           key={item.slug}
           job={item}
-          setSavedJobIds={setSavedJobIds}
-          savedJobIds={savedJobIds}
+          isSaved={savedJobIds.includes(item.slug)}
+          onSave={onSave}
+          onRemove={onRemove}
         />
       ))}
     </div>

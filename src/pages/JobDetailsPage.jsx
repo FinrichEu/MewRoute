@@ -1,5 +1,6 @@
 import React from 'react'
 import { useParams } from 'react-router';
+import ErrorState from '../components/ErrorState.jsx';
 
 export default function JobDetailsPage({ jobs, loading, error, onRetry }) {
 
@@ -15,12 +16,7 @@ export default function JobDetailsPage({ jobs, loading, error, onRetry }) {
   }
 
   if (error) {
-    return (
-      <div>
-        <p>Error: {error}</p>
-        <button onClick={onRetry}>Retry</button>
-      </div>
-    );
+    return <ErrorState message={error} onRetry={onRetry} />;
   }
 
   if (!foundJob) {

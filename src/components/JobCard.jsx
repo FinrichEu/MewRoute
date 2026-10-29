@@ -1,9 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router';
 
-export default function JobCard({ job, setSavedJobIds, savedJobIds, handleRemove }) {
-
-    const isSaved = savedJobIds.includes(job.slug);
+export default function JobCard({ job, isSaved, onSave, onRemove }) {
 
     return (
         <article className="job-card">
@@ -22,24 +20,22 @@ export default function JobCard({ job, setSavedJobIds, savedJobIds, handleRemove
             </div>
 
             <div className="job-actions">
-                {handleRemove ? (
+                {onRemove ? (
                     <button
                         type="button"
-                        onClick={() => handleRemove(job.slug)}>Remove</button>) :
-                    (<button
-                        disabled={isSaved}
+                        onClick={() => onRemove(job.slug)}
+                    >
+                        Remove
+                    </button>
+                ) : (
+                    <button
                         type="button"
-                        onClick={() => {
-                            setSavedJobIds((oldArray) => {
-                                if (oldArray.includes(job.slug)) {
-                                    return oldArray;
-                                }
-
-                                return [...oldArray, job.slug];
-                            });
-                        }}>
+                        disabled={isSaved}
+                        onClick={() => onSave(job.slug)}
+                    >
                         {isSaved ? 'Saved' : 'Save'}
-                    </button>)}
+                    </button>
+                )}
                 <Link className="job-link"
                     /* Backticks (` `) create a template string that lets you insert variables.
                     ${ ... } inserts the value of the JavaScript expression inside the braces into the string.
