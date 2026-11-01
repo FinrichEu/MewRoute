@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 
 export default function useSavedJobs() {
-
     const [savedJobIds, setSavedJobIds] = useState(() => {
+        /* read saved IDs from localStorage on initialization */
         const savedIds = localStorage.getItem('savedJobIds');
         if (!savedIds) {
             return [];
@@ -28,10 +28,12 @@ export default function useSavedJobs() {
 
     function saveJob(jobId) {
         setSavedJobIds((currentIds) => {
+            /* If the job is already saved, leave the array unchanged */
             if (currentIds.includes(jobId)) {
                 return currentIds;
             }
-
+            
+            /* Create a new array: existing IDs plus the new one */
             return [...currentIds, jobId];
         });
     }

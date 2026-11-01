@@ -1,5 +1,5 @@
 import React from 'react'
-import ErrorState from '../components/ErrorState.jsx';
+import ErrorState from '../components/UI/ErrorState.jsx';
 import JobList from '../components/JobList.jsx';
 
 export default function ApplicationsPage({ jobs, savedJobIds, onRemove, loading, error, onRetry }) {

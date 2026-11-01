@@ -1,10 +1,19 @@
 import { useState, useEffect } from 'react';
 import { getJobs } from '../API/jobs.js';
 
+/* Custom hook to fetch jobs from the API and manage loading, error, and retry states */
+
 export default function useJobs() {
+    /* State to hold the fetched jobs */
     const [jobs, setJobs] = useState([]);
+
+    /* While the job openings are loading, I am displaying the loading status */
     const [loading, setLoading] = useState(true);
+
+    /* I store the error message; initially, there is no error */
     const [error, setError] = useState(null);
+
+    /* State to track the number of retry attempts */
     const [retryCount, setRetryCount] = useState(0);
 
     useEffect(() => {
@@ -13,7 +22,10 @@ export default function useJobs() {
         const controller = new AbortController();
 
         async function loadJobs() {
+            /* I inform the interface that the loading has started */
             setLoading(true);
+
+            /* Reset the error state before making a new request */
             setError(null);
 
             try {

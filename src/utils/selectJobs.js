@@ -17,6 +17,7 @@ export default function selectJobs(
         return 0
     })
 
+    /* Remove whitespace from the edges (.trim) and convert the query to lowercase */
     const normalizedSearch = search.trim().toLowerCase();
     const normalizedLocation = location.trim().toLowerCase();
 

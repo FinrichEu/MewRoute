@@ -16,6 +16,6 @@ export async function getJobs(signal) {
     }
 
     return {
-        data: json.data,
+        data: json.data
     };
 }

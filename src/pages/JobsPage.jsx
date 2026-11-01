@@ -3,9 +3,9 @@ import { useState, useEffect } from 'react'
 import SearchFilters from '../components/SearchFilters.jsx'
 import JobsFound from '../components/JobsFound.jsx'
 import JobsList from '../components/JobList.jsx'
-import Pagination from '../components/Pagination/Pagination.jsx'
-import ErrorState from '../components/ErrorState.jsx';
-import selectJobs from '../hooks/selectJobs.js';
+import Pagination from '../components/UI/Pagination.jsx'
+import ErrorState from '../components/UI/ErrorState.jsx';
+import selectJobs from '../utils/selectJobs.js';
 
 /* Receive the saved job IDs (savedJobIds) and the function to update them (setSavedJobIds) from App */
 
@@ -24,6 +24,7 @@ export default function JobsPage({
   /* Store the selected work format */
   const [workformat, setWorkformat] = useState("");
 
+  /* Store the current page number for pagination */
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
@@ -45,6 +46,8 @@ export default function JobsPage({
     return <p>No jobs found.</p>;
   }
 
+  /* Filter and sort the jobs based on the selected criteria */
+
   const matchingJobs = selectJobs(jobs, {
     search,
     location,
@@ -52,11 +55,15 @@ export default function JobsPage({
     sortBy,
   });
 
+  /* jobsPerPage = 20 (optional) */
+  /* Calculate the number of pages, rounding up. */
   const totalPages = Math.ceil(matchingJobs.length / jobsPerPage);
 
+  /* Calculating the boundaries of the current page */
   const startIndex = (currentPage - 1) * jobsPerPage;
   const endIndex = startIndex + jobsPerPage;
 
+  /* Only take job openings for the current page */
   const visibleJobs = matchingJobs.slice(startIndex, endIndex);
 
   return (
@@ -64,17 +71,23 @@ export default function JobsPage({
       <SearchFilters
         search={search}
         setSearch={(value) => {
+          /* Update the search text */
           setSearch(value);
+          /* Return the user to the first page of results */
           setCurrentPage(1);
         }}
         location={location}
         setlocation={(value) => {
+          /* Update the search text */
           setlocation(value);
+          /* Return the user to the first page of results */
           setCurrentPage(1);
         }}
         workformat={workformat}
         setWorkformat={(value) => {
+          /* Update the search text */
           setWorkformat(value);
+          /* Return the user to the first page of results */
           setCurrentPage(1);
         }}
       />

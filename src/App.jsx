@@ -11,13 +11,16 @@ import { Routes, Route, } from 'react-router'
 
 function App() {
 
+  /* I receive the saved job IDs and functions to add and remove them */
   const { savedJobIds, saveJob, removeJob } = useSavedJobs();
+  /* I receive job openings, loading status, an error, and a retry function */
   const { jobs, loading, error, retry } = useJobs();
 
   return (
     <div className="wrapper">
       <Header />
       <Navigation count={savedJobIds.length} />
+      {/* passing the number of saved job postings to the navigation component */}  
       <Routes>
         <Route
           path="/"

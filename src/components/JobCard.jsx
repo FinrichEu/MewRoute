@@ -5,8 +5,8 @@ export default function JobCard({ job, isSaved, onSave, onRemove }) {
 
     return (
         <article className="job-card">
-            <div className="job-logo">{job.company_name.slice(0, 2).toUpperCase()}
-            </div>
+            {/* Designing the first two characters of the company name as a logo (slice) */}
+            <div className="job-logo">{job.company_name.slice(0, 2).toUpperCase()}</div>
 
             <div className="job-info">
                 <h3>{job.title}</h3>
