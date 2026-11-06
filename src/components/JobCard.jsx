@@ -1,6 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router';
 
+/* Display a card for a single job opening with its details, 
+a Save or Delete button, and a link to the full details */
+
 export default function JobCard({ job, isSaved, onSave, onRemove }) {
 
     return (

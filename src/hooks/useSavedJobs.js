@@ -1,5 +1,8 @@
 import { useState, useEffect } from 'react';
 
+/* manages the list of job openings that the user has selected using 
+the Save button and saves this selection after the site is reloaded */
+
 export default function useSavedJobs() {
     const [savedJobIds, setSavedJobIds] = useState(() => {
         /* read saved IDs from localStorage on initialization */
@@ -39,7 +42,9 @@ export default function useSavedJobs() {
     }
 
     function removeJob(jobId) {
+        /* Retrieve the current array of saved IDs */
         setSavedJobIds((currentIds) => {
+            /* Return a new array without the removed ID */
             return currentIds.filter((id) => id !== jobId);
         });
     }

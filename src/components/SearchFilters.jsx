@@ -1,5 +1,8 @@
 import React from 'react'
 
+/* Display the search, location, and work schedule fields */
+/* Pass the entered values to JobsPage using the provided functions */
+
 export default function SearchFilters({ search, setSearch, location, setlocation, workformat, setWorkformat}) {
   return (
     <div className="filter-fields">

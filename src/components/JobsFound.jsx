@@ -1,5 +1,8 @@
 import React from 'react'
 
+/* Display the number of job openings that match the filters */
+/* Pass the selected sort order to JobsPage */
+
 export default function JobsFound({ count, sortBy, setSortBy }) {
   return (
     <div className="jobs-block">

@@ -2,6 +2,9 @@ import React from 'react'
 import { SlArrowLeft } from "react-icons/sl";
 import { SlArrowRight } from "react-icons/sl";
 
+/* Display the current page and the navigation buttons */
+/* Use the passed function to change the page number in JobsPage */
+
 function Pagination({ currentPage, setCurrentPage, totalPages }) {
     if (totalPages <= 1) {
         return null;
@@ -10,6 +13,7 @@ function Pagination({ currentPage, setCurrentPage, totalPages }) {
     return (
         <div className="pagination">
             <button
+                /* “Previous”: You cannot navigate backward on the first page */
                 disabled={currentPage === 1}
                 type="button"
                 onClick={() => setCurrentPage((currentPage) => currentPage - 1)}
@@ -24,6 +28,7 @@ function Pagination({ currentPage, setCurrentPage, totalPages }) {
             </span>
 
             <button
+                /* “Next”: You cannot navigate forward on the last page */
                 disabled={currentPage >= totalPages}
                 type="button"
                 onClick={() => setCurrentPage((currentPage) => currentPage + 1)}

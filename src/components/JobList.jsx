@@ -1,6 +1,10 @@
 import React from 'react'
 import JobCard from './JobCard.jsx'
 
+/* Create cards from the array of job openings passed in */
+/* Pass them the save status and the button functions */
+/* If the list is empty, display the message that was passed in */
+
 export default function JobList({
   jobsarray,
   onSave,

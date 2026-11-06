@@ -1,6 +1,9 @@
 import React from 'react'
 import { NavLink } from "react-router";
 
+/* Display links to the general list and saved job postings */
+/* Display the number of saved job postings, obtained using the `count` function */
+
 export default function Navigation({count}) {
     return (
         <div className="navigation">
