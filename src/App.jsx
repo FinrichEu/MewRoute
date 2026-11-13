@@ -1,7 +1,6 @@
 import './App.css'
 import Header from './components/Header.jsx'
 import Footer from './components/Footer.jsx'
-import Navigation from './components/Navigation.jsx'
 import JobsPage from './pages/JobsPage.jsx'
 import ApplicationsPage from './pages/ApplicationsPage.jsx'
 import JobDetailsPage from './pages/JobDetailsPage.jsx'
@@ -18,10 +17,9 @@ function App() {
 
   return (
     <div className="wrapper">
-      <Header />
-      <Navigation count={savedJobIds.length} />
+      <Header count={savedJobIds.length}/>
       {/* passing the number of saved job postings to the navigation component */}  
-      <Routes>
+      <Routes>  
         <Route
           path="/"
           element={<JobsPage
