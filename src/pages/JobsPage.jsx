@@ -10,7 +10,7 @@ import selectJobs from '../utils/selectJobs.js';
 /* Receive the saved job IDs (savedJobIds) and the function to update them (setSavedJobIds) from App */
 
 export default function JobsPage({
-  jobs, onSave, savedJobIds, loading, error, onRetry, }) {
+  jobs, onSave, onRemove, savedJobIds, loading, error, onRetry, }) {
 
   /* Store the selected sort option */
   const [sortBy, setSortBy] = useState("default");
@@ -34,7 +34,7 @@ export default function JobsPage({
   const jobsPerPage = 20;
 
   if (loading) {
-    return <p>Loading jobs...</p>;
+    return <p className="empty-message">Loading jobs...</p>;
   }
 
   /* Call onRetry when the button is clicked to retry fetching jobs */
@@ -43,7 +43,7 @@ export default function JobsPage({
   }
 
   if (!jobs || jobs.length === 0) {
-    return <p>No jobs found.</p>;
+    return <p className="empty-message">No jobs found.</p>;
   }
 
   /* Filter and sort the jobs based on the selected criteria */
@@ -98,6 +98,7 @@ export default function JobsPage({
       <JobsList
         jobsarray={visibleJobs}
         onSave={onSave}
+        onRemove={onRemove}
         savedJobIds={savedJobIds}
       />
       <Pagination

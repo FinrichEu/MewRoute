@@ -11,15 +11,15 @@ import { Routes, Route, } from 'react-router'
 function App() {
 
   /* I receive the saved job IDs and functions to add and remove them */
-  const { savedJobIds, saveJob, removeJob } = useSavedJobs();
+  const { savedJobIds, saveJob, removeJob, clearSavedJobs } = useSavedJobs();
   /* I receive job openings, loading status, an error, and a retry function */
   const { jobs, loading, error, retry } = useJobs();
 
   return (
     <div className="wrapper">
-      <Header count={savedJobIds.length}/>
-      {/* passing the number of saved job postings to the navigation component */}  
-      <Routes>  
+      <Header count={savedJobIds.length} />
+      {/* passing the number of saved job postings to the navigation component */}
+      <Routes>
         <Route
           path="/"
           element={<JobsPage
@@ -28,6 +28,7 @@ function App() {
             error={error}
             savedJobIds={savedJobIds}
             onSave={saveJob}
+            onRemove={removeJob}
             onRetry={retry} />}
         />
         <Route
@@ -36,6 +37,7 @@ function App() {
             jobs={jobs}
             savedJobIds={savedJobIds}
             onRemove={removeJob}
+            onClear={clearSavedJobs}
             loading={loading}
             error={error}
             onRetry={retry} />}

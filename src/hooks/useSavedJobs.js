@@ -49,5 +49,9 @@ export default function useSavedJobs() {
         });
     }
 
-    return { savedJobIds, saveJob, removeJob };
+    function clearSavedJobs() {
+        setSavedJobIds([]);
+    }
+
+    return { savedJobIds, saveJob, removeJob, clearSavedJobs };
 }

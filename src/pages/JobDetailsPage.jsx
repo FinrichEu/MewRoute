@@ -1,6 +1,7 @@
 import React from 'react'
 import { useParams } from 'react-router';
 import ErrorState from '../components/UI/ErrorState.jsx';
+import JobCard from '../components/JobCard.jsx';
 
 export default function JobDetailsPage({ jobs, loading, error, onRetry }) {
 
@@ -26,8 +27,10 @@ export default function JobDetailsPage({ jobs, loading, error, onRetry }) {
   }
 
   return (
-    <div>
-      <h1>{foundJob.title}</h1>
+    <div className="job-details">
+      <JobCard job={foundJob} showActions={false} />
+      <h1 className="job-title">About the role:</h1>
+      <p>{foundJob.title}</p>
       <p>{foundJob.company_name}</p>
       <p>{foundJob.location}</p>
     </div>

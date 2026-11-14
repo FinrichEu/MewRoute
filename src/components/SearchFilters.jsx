@@ -36,7 +36,7 @@ export default function SearchFilters({ search, setSearch, location, setlocation
           <div className="field-content format-content">
             <label htmlFor="work-format">Work format</label>
             <select
-              className="filter-control format-select"
+              className="filter-control format-select dropdown-select"
               id="work-format"
               value={workformat}
               onChange={(e) => setWorkformat(e.target.value)}

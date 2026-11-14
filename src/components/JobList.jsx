@@ -14,7 +14,7 @@ export default function JobList({
   if (jobsarray.length === 0) {
     return (
       <div className="job-list">
-        <p>{emptyMessage}</p>
+        <p className="empty-message">{emptyMessage}</p>
       </div>
     )
   }
