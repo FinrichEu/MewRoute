@@ -885,14 +885,12 @@ header .logo {
 
 /* Tablets and phones */
 
-@media (max-width: 900px) {
+@media (max-width: 1080px) {
   .header {
     flex-direction: column;
     gap: 20px;
   }
-}
 
-@media (max-width: 800px) {
   .wrapper {
     margin: 24px auto;
   }
