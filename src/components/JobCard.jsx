@@ -15,7 +15,7 @@ export default function JobCard({ job, isSaved, onSave, onRemove, showActions = 
                         {job.company_name.slice(0, 2).toUpperCase()}
                     </div>
 
-                    <div>
+                    <div className="job-company-info">
                         <h4>{job.company_name}</h4>
                         {job.location?.trim() && (
                             <p className="job-location">
