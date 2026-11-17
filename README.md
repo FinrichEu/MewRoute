@@ -1,8 +1,8 @@
-# JobFlexCat
+# MewRoute
 
 A React application for searching, exploring, and saving job opportunities in Germany.
 
-JobFlexCat is an independently developed portfolio project covering frontend development, integration with the external Arbeitnow API, client-side routing, state management, and browser-based data persistence.
+MewRoute is an independently developed portfolio project covering frontend development, integration with the external Arbeitnow API, client-side routing, state management, and browser-based data persistence.
 
 ## Features
 
@@ -36,13 +36,13 @@ JobFlexCat is an independently developed portfolio project covering frontend dev
 Clone the repository:
 
 ```bash
-git clone https://github.com/FinrichEu/JobFlexCat.git
+git clone https://github.com/FinrichEu/MewRoute.git
 ```
 
 Navigate to the project directory:
 
 ```bash
-cd JobFlexCat
+cd MewRoute
 ```
 
 Install dependencies:

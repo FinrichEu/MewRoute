@@ -3,7 +3,7 @@ export default function Footer() {
   return (
     <footer className="footer">
       <div>
-        <p className="footer-brand">JobFlexCat</p>
+        <p className="footer-brand">MewRoute</p>
         <small>&copy; {new Date().getFullYear()} FinrichEu</small>
       </div>
       <p className="footer-description">

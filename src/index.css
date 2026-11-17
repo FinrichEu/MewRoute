@@ -73,7 +73,7 @@ header .logo {
   font-weight: 600;
   font-size: 25px;
   line-height: 160%;
-  letter-spacing: -0.04em;
+  letter-spacing: 0.05rem;
   color: var(--text, #f3f8f7);
 }
 
