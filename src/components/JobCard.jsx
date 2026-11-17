@@ -57,7 +57,11 @@ export default function JobCard({ job, isSaved, onSave, onRemove, showActions = 
                 </div>
 
                 {showActions && (
-                    <Link className="job-link" to={`/jobs/${job.slug}`}>
+                    <Link
+                        className="job-link"
+                        to={`/jobs/${job.slug}`}
+                        aria-label={`View details for ${job.title}`}
+                    >
                         View details
                         <FiArrowRight aria-hidden="true" />
                     </Link>

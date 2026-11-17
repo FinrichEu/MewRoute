@@ -22,7 +22,7 @@ export default function JobsPage({
   const [location, setlocation] = useState("");
 
   /* Store the selected work format */
-  const [workformat, setWorkformat] = useState("");
+  const [workformat, setWorkformat] = useState("all");
 
   /* Store the current page number for pagination */
   const [currentPage, setCurrentPage] = useState(1);

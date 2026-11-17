@@ -26,10 +26,7 @@
   --filter-divider: #b6d2ca;
   --filter-hover: rgba(39, 140, 128, 0.08);
   --filter-open: rgba(39, 140, 128, 0.12);
-  --filter-active: rgba(39, 140, 128, 0.18);
   --focus: rgba(33, 111, 101, 0.65);
-  --menu-bg: #ffffff;
-  --menu-hover: #dff3ee;
   --shadow: 0 8px 24px rgba(20, 50, 40, 0.12);
   --hero: linear-gradient(110deg, #f4faf8 0%, #dcf5ee 55%, #b6eee1 100%);
   --logo-filter: brightness(0.62) saturate(1.15);
@@ -355,126 +352,37 @@ input.filter-control:focus {
   background: var(--filter-open, rgba(157, 233, 223, 0.12));
 }
 
-/* Work format: control, rounded highlight, and arrow */
-.format-select {
-  position: relative;
-  z-index: 1;
-  padding-right: 28px;
-  cursor: pointer;
-  transition: color 160ms ease;
-}
-
-.format-select:is(:hover, :open),
-.format-field:has(.format-select:is(:hover, :open)) .format-arrow {
-  color: var(--accent, #9de9df);
-}
-
-.format-content::before {
-  content: "";
-  position: absolute;
-  z-index: 0;
-  left: -6px;
-  right: 28px;
-  bottom: 0;
-  height: 24px;
-  border-radius: 8px;
-  background-color: transparent;
-  pointer-events: none;
-  transition: background-color 160ms ease;
-}
-
-.format-content:has(.format-select:hover)::before {
-  background-color: var(--filter-hover, rgba(157, 233, 223, 0.08));
-}
-
-.format-content:has(.format-select:open)::before {
-  background-color: var(--filter-open, rgba(157, 233, 223, 0.12));
-}
-
-.format-content:has(.format-select:active)::before {
-  background-color: var(--filter-active, rgba(157, 233, 223, 0.18));
-}
-
-.format-content:has(.format-select:focus-visible)::before {
-  box-shadow: 0 0 0 2px var(--focus, rgba(157, 233, 223, 0.55));
-}
-
-.format-arrow {
-  position: absolute;
-  z-index: 2;
-  top: 50%;
-  right: 22px;
-  width: 11px;
-  height: 11px;
-  transform: translateY(-50%);
-  color: var(--muted, #b6d5d1);
-  pointer-events: none;
-  transition: transform 160ms ease, color 160ms ease;
-}
-
-.format-field:has(.format-select:open) .format-arrow {
-  transform: translateY(-50%) rotate(180deg);
-}
-
-/* Shared dropdown menu */
+/* Native selects follow the active site theme. */
 .dropdown-select {
-  appearance: none;
-}
-
-.dropdown-select,
-.dropdown-select::picker(select) {
-  appearance: base-select;
-}
-
-.dropdown-select::picker-icon {
-  display: none;
-}
-
-.dropdown-select::picker(select) {
-  margin-top: 10px;
-  padding: 6px;
-  background: var(--menu-bg, #123438);
-  border: 1px solid var(--border-strong, #526b67);
-  border-radius: 14px;
-  box-shadow: var(--shadow, 0 8px 24px #0004);
-  color: var(--text, #F0FCFA);
-}
-
-.dropdown-select option {
-  padding: 2px 17px;
-  border-radius: 8px;
-  color: var(--text, #F0FCFA);
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 24px;
-  white-space: nowrap;
+  appearance: auto;
+  color-scheme: inherit;
+  background: var(--surface, #1b2120);
+  color: var(--text, #f3f8f7);
+  border: 1px solid var(--border, #35403e);
+  border-radius: 6px;
+  padding: 0 6px;
+  font: inherit;
   cursor: pointer;
-  transition: background-color 160ms ease;
 }
 
-.dropdown-select option:is(:checked, :hover, :focus) {
-  background-color: var(--menu-hover, #207d79);
+/* Keep Work format light in both themes. */
+#work-format {
+  color-scheme: only light;
+  background: #ffffff;
+  color: #25302e;
+  border-color: #b4cec6;
 }
 
+/* Match the underline to the full width of the highlighted input. */
 .field-content:has(input:focus)::after {
   content: "";
   position: absolute;
   left: 0;
   bottom: -5px;
-  width: min(300px, 100%);
+  width: 100%;
   height: 1px;
   background: var(--focus, rgba(157, 233, 223, 0.647));
   pointer-events: none;
-}
-
-@media (prefers-reduced-motion: reduce) {
-
-  .format-select,
-  .dropdown-select option,
-  .format-content::before,
-  .format-arrow {
-    transition: none;
-  }
 }
 
 .search-filters {
@@ -542,60 +450,37 @@ input.filter-control:focus {
 .sort-field {
   position: relative;
   display: inline-flex;
+  /* Add space between the native arrow and the outer edge. */
+  padding-right: 8px;
+  background: var(--surface, #1b2120);
+  border: 1px solid var(--border, #35403e);
+  border-radius: 999px;
 }
 
 .sort-field select {
-  display: flex;
-  align-items: center;
   box-sizing: border-box;
   min-width: 160px;
-  height: 38px;
+  height: 36px;
   padding: 0 30px 0 40px;
 
-  background: var(--surface, #1b2120);
-  border: 1px solid var(--border, #35403e);
+  border: none;
   border-radius: 999px;
 
   font-family: inherit;
   font-size: 14px;
   line-height: 20px;
-  color: var(--muted, #b4c3c1);
   cursor: pointer;
 }
 
-.sort-field select::picker(select) {
-  background: var(--surface, #1b2120);
-  border-color: var(--border, #35403e);
-  color: var(--muted, #b4c3c1);
-}
-
-.sort-field option {
-  color: var(--muted, #b4c3c1);
-}
-
-.sort-field option:is(:checked, :hover, :focus) {
-  background-color: var(--hover, #35403e);
-}
-
-.sort-icon,
-.sort-arrow {
+.sort-icon {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
   color: var(--muted, #b4c3c1);
   pointer-events: none;
-}
-
-.sort-icon {
   left: 14px;
   width: 16px;
   height: 16px;
-}
-
-.sort-arrow {
-  right: 14px;
-  width: 12px;
-  height: 12px;
 }
 
 /* Jobs List */
@@ -609,6 +494,8 @@ input.filter-control:focus {
 /* Jobs Card */
 
 .job-card {
+  /* Keep the expanded details link inside its card. */
+  position: relative;
   display: flex;
   flex-direction: column;
   min-width: 0;
@@ -689,6 +576,9 @@ input.filter-control:focus {
 }
 
 .job-save {
+  /* Keep bookmarks clickable above the expanded details link. */
+  position: relative;
+  z-index: 1;
   display: grid;
   place-items: center;
   flex-shrink: 0;
@@ -755,6 +645,15 @@ input.filter-control:focus {
 
 .job-link svg {
   color: var(--accent, #b5c7c3);
+}
+
+/* Make the whole card a link while preserving normal link behavior. */
+.job-card .job-link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  cursor: pointer;
 }
 
 /* Pagination */
@@ -1013,8 +912,10 @@ input.filter-control:focus {
     display: none;
   }
 
-  .format-arrow {
-    right: 16px;
+  /* Keep Work format compact on smaller screens. */
+  #work-format {
+    width: 160px;
+    max-width: 100%;
   }
 
   .jobs-block {
@@ -1035,7 +936,7 @@ input.filter-control:focus {
   .sort-field select {
     width: 100%;
     min-width: 0;
-    height: 44px;
+    height: 42px;
     font-size: 16px;
   }
 

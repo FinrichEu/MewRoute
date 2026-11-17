@@ -1,4 +1,4 @@
-import { LuListFilter, LuChevronDown } from "react-icons/lu";
+import { LuListFilter } from "react-icons/lu";
 
 /* Display the number of job openings that match the filters */
 /* Pass the selected sort order to JobsPage */
@@ -25,7 +25,6 @@ export default function JobsFound({ count, sortBy, setSortBy }) {
           <option value="oldest">Oldest first</option>
         </select>
 
-        <LuChevronDown className="sort-arrow" aria-hidden="true" />
       </div>
     </div>
   )
