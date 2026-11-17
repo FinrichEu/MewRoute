@@ -67,7 +67,7 @@ Open the local URL displayed in your terminal.
 | `npm run build` | Create a production build in the `dist` directory |
 | `npm run preview` | Preview the production build locally |
 | `npm run lint` | Run the configured code linter |
-| `npx vitest run` | Run unit tests once |
+| `npm test` | Run unit tests once |
 
 Run `npm run build` before using `npm run preview`.
 
@@ -124,7 +124,22 @@ Test coverage is currently limited, with plans to expand it to additional filter
 
 ## Live Website
 
-Link
+[Open MewRoute](https://finricheu.github.io/MewRoute/)
+
+The website becomes available after the first successful GitHub Pages deployment.
+
+## GitHub Pages Deployment
+
+The workflow in `.github/workflows/deploy.yml` publishes changes pushed to the default branch, `develop`.
+
+1. Open the repository's **Settings → Pages**.
+2. Set **Source** to **GitHub Actions**.
+3. Commit and push the deployment files to `develop`.
+4. Check the **Deploy MewRoute to GitHub Pages** workflow in the **Actions** tab.
+
+The workflow installs dependencies, runs the linter and tests, builds the application, and publishes the `dist` directory. It can also be started manually using **Run workflow** in Actions.
+
+Vite uses `/MewRoute/` as the public base path. `HashRouter` keeps application routes after `#`, so pages such as `/MewRoute/#/applications` can be opened directly and refreshed on GitHub Pages.
 
 ## Author
 
