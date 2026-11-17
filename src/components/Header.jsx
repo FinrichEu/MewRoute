@@ -9,10 +9,10 @@ export default function Header({ count }) {
     <header className="header">
       <div className="logo-container">
 
-        <img src={logo} alt="catlogo" className="logo-img" />
+        <img src={logo} alt="MewRoute logo" className="logo-img" />
 
         <div>
-          <span className="logo">JobFlexCat</span>
+          <span className="logo">MewRoute</span>
         </div>
       </div>
       <Navigation count={count} />
