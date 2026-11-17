@@ -34,8 +34,9 @@ export default function JobCard({ job, isSaved, onSave, onRemove, showActions = 
                         aria-label={
                             isSaved ? "Remove saved job" : "Save job"
                         }
+                        /* Save the full job object so its card can be restored later. */
                         onClick={() =>
-                            isSaved ? onRemove(job.slug) : onSave(job.slug)
+                            isSaved ? onRemove(job.slug) : onSave(job)
                         }
                     >
                         <FiBookmark

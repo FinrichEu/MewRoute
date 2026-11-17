@@ -1,57 +1,84 @@
 import { useState, useEffect } from 'react';
 
-/* manages the list of job openings that the user has selected using 
-the Save button and saves this selection after the site is reloaded */
+/* Store saved job snapshots so they remain available after the API feed changes. */
 
-export default function useSavedJobs() {
-    const [savedJobIds, setSavedJobIds] = useState(() => {
-        /* read saved IDs from localStorage on initialization */
-        const savedIds = localStorage.getItem('savedJobIds');
-        if (!savedIds) {
-            return [];
-        }
-
+export default function useSavedJobs(jobs) {
+    const [savedItems, setSavedItems] = useState(() => {
         try {
-            const parsedIds = JSON.parse(savedIds);
-            if (!Array.isArray(parsedIds)) {
+            /* Read snapshots, or fall back to IDs saved by the old version. */
+            const storedItems = localStorage.getItem('savedJobs') ?? localStorage.getItem('savedJobIds');
+            if (!storedItems) {
                 return [];
             }
 
-            /* API jobs use string slugs discard old numeric IDs and null entries */
-            return parsedIds.filter((id) => typeof id === 'string' && id.length > 0);
+            const parsedItems = JSON.parse(storedItems);
+            if (!Array.isArray(parsedItems)) {
+                return [];
+            }
+
+            /* Keep old string IDs and job objects with the fields needed by cards. */
+            return parsedItems.filter((item) => {
+                if (typeof item === 'string') {
+                    return item.length > 0;
+                }
+
+                return item &&
+                    typeof item.slug === 'string' && item.slug.length > 0 &&
+                    typeof item.title === 'string' &&
+                    typeof item.company_name === 'string' &&
+                    Array.isArray(item.tags);
+            });
         } catch {
             return [];
         }
     });
 
+    /* Replace old IDs with snapshots when their jobs are available from the API. */
     useEffect(() => {
-        localStorage.setItem('savedJobIds', JSON.stringify(savedJobIds));
-        /* Save the IDs to localStorage whenever savedJobIds changes */
-    }, [savedJobIds]); /* Which values ​​should trigger a re-run of this useEffect when they change? */
+        if (jobs.length === 0) return;
 
-    function saveJob(jobId) {
-        setSavedJobIds((currentIds) => {
-            /* If the job is already saved, leave the array unchanged */
-            if (currentIds.includes(jobId)) {
-                return currentIds;
+        setSavedItems((currentItems) => currentItems.map((item) => {
+            if (typeof item === 'string') {
+                return jobs.find((job) => job.slug === item) ?? item;
             }
-            
-            /* Create a new array: existing IDs plus the new one */
-            return [...currentIds, jobId];
+
+            return item;
+        }));
+    }, [jobs]);
+
+    useEffect(() => {
+        try {
+            localStorage.setItem('savedJobs', JSON.stringify(savedItems));
+        } catch {
+            /* The list still works in memory until the page is reloaded. */
+        }
+    }, [savedItems]);
+
+    /* Display and count stored cards; unresolved old IDs stay available for migration. */
+    const savedJobs = savedItems.filter((item) => typeof item !== 'string');
+    const savedJobIds = savedJobs.map((job) => job.slug);
+
+    function saveJob(job) {
+        setSavedItems((currentItems) => {
+            /* Check the slug before saving the complete job object. */
+            if (currentItems.some((item) => item === job.slug || item.slug === job.slug)) {
+                return currentItems;
+            }
+
+            return [...currentItems, job];
         });
     }
 
     function removeJob(jobId) {
-        /* Retrieve the current array of saved IDs */
-        setSavedJobIds((currentIds) => {
-            /* Return a new array without the removed ID */
-            return currentIds.filter((id) => id !== jobId);
+        /* Remove either a stored job or an old ID with the matching slug. */
+        setSavedItems((currentItems) => {
+            return currentItems.filter((item) => item !== jobId && item.slug !== jobId);
         });
     }
 
     function clearSavedJobs() {
-        setSavedJobIds([]);
+        setSavedItems([]);
     }
 
-    return { savedJobIds, saveJob, removeJob, clearSavedJobs };
+    return { savedJobs, savedJobIds, saveJob, removeJob, clearSavedJobs };
 }

@@ -3,22 +3,24 @@ import { useParams } from 'react-router';
 import ErrorState from '../components/UI/ErrorState.jsx';
 import JobCard from '../components/JobCard.jsx';
 
-export default function JobDetailsPage({ jobs, loading, error, onRetry }) {
+export default function JobDetailsPage({ jobs, savedJobs, loading, error, onRetry }) {
 
   /* Get the job ID from the current URL */
   const params = useParams();
   const jobId = params.jobId;
 
-  /* Searching for a vacancy whose slug matches the identifier from the URL */
+  /* Fall back to the saved snapshot if the job is missing from the API feed. */
   const foundJob = jobs.find((currentJob) => {
     return currentJob.slug === jobId;
+  }) || savedJobs.find((savedJob) => {
+    return savedJob.slug === jobId;
   });
 
-  if (loading) {
+  if (!foundJob && loading) {
     return <p>Loading job...</p>;
   }
 
-  if (error) {
+  if (!foundJob && error) {
     return <ErrorState message={error} onRetry={onRetry} />;
   }
 
@@ -33,6 +35,17 @@ export default function JobDetailsPage({ jobs, loading, error, onRetry }) {
       <p>{foundJob.title}</p>
       <p>{foundJob.company_name}</p>
       <p>{foundJob.location}</p>
+      {/* Open the job URL provided by the API in a new tab. */}
+      {foundJob.url && (
+        <a
+          className="job-apply"
+          href={foundJob.url}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Apply for this job
+        </a>
+      )}
     </div>
   )
 }
