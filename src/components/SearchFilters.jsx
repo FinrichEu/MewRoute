@@ -2,7 +2,6 @@ import {
   SlMagnifier,
   SlBriefcase,
   SlLocationPin,
-  SlArrowDown,
 } from "react-icons/sl";
 
 /* Display the search, location, and work schedule fields */
@@ -30,13 +29,13 @@ export default function SearchFilters({ search, setSearch, location, setlocation
           </div>
         </div>
 
-        <div className="filter-field format-field">
+        <div className="filter-field">
           <SlBriefcase className="filter-icon" />
 
-          <div className="field-content format-content">
+          <div className="field-content">
             <label htmlFor="work-format">Work format</label>
             <select
-              className="filter-control format-select dropdown-select"
+              className="filter-control dropdown-select"
               id="work-format"
               value={workformat}
               onChange={(e) => setWorkformat(e.target.value)}
@@ -46,7 +45,6 @@ export default function SearchFilters({ search, setSearch, location, setlocation
               <option value="not-remote">Not remote</option>
             </select>
           </div>
-          <SlArrowDown className="format-arrow" aria-hidden="true" />
         </div>
 
         <div className="filter-field">
