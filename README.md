@@ -130,14 +130,14 @@ The website becomes available after the first successful GitHub Pages deployment
 
 ## GitHub Pages Deployment
 
-The workflow in `.github/workflows/deploy.yml` publishes changes pushed to the default branch, `develop`.
+The `develop` branch is used for development. The workflow in `.github/workflows/deploy.yml` publishes the stable website from `main`.
 
 1. Open the repository's **Settings → Pages**.
 2. Set **Source** to **GitHub Actions**.
-3. Commit and push the deployment files to `develop`.
+3. Merge the ready changes from `develop` into `main` and push `main`.
 4. Check the **Deploy MewRoute to GitHub Pages** workflow in the **Actions** tab.
 
-The workflow installs dependencies, runs the linter and tests, builds the application, and publishes the `dist` directory. It can also be started manually using **Run workflow** in Actions.
+The workflow installs dependencies, runs the linter and tests, builds the application, and publishes the `dist` directory. It can also be started manually using **Run workflow** in Actions with the `main` branch selected. Runs from other branches skip deployment.
 
 Vite uses `/MewRoute/` as the public base path. `HashRouter` keeps application routes after `#`, so pages such as `/MewRoute/#/applications` can be opened directly and refreshed on GitHub Pages.
 

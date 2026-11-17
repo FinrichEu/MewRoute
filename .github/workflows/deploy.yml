@@ -1,9 +1,9 @@
 name: Deploy MewRoute to GitHub Pages
 
-# Publish the default branch, or start a deployment manually in Actions.
+# Publish the stable main branch, automatically or manually in Actions.
 on:
   push:
-    branches: [develop]
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -18,6 +18,8 @@ concurrency:
 
 jobs:
   deploy:
+    # Manual runs must also use the stable branch.
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     environment:
       name: github-pages
